@@ -16,6 +16,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
     // BCryptPasswordEncoder 객체를 bean 등록하기 위해서 사용하였습니다
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
