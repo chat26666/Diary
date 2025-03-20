@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -47,5 +46,8 @@ public class DiaryServiceImpl implements DiaryService {
             else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
         }
         else throw new BadCredentialsException("패스워드가 올바르지 않습니다.");
+    }
+    public List<ResponseDataDto> getPageDiary(Integer writerId, RequestFindPageDto dto) {
+        return diaryRepo.getPageDiary(writerId,dto);
     }
 }

@@ -11,5 +11,6 @@ public interface DiaryService {
     public ResponseDataDto getDiary(Integer writerId, Integer DiaryId);
     public ResponseDataDto modifyDiary(Integer writerId, Integer DiaryId, RequestModifyDto dto);
     public void deleteDiary(Integer writerId, Integer DiaryId, RequestDeleteDto dto);
+    public List<ResponseDataDto> getPageDiary(Integer writerId, RequestFindPageDto dto);
 }
 

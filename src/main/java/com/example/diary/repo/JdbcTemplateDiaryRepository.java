@@ -33,8 +33,8 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
     }
     @Override
     public List<ResponseDataDto> getAllDiary(Integer writerId,RequestFindAllDto dto) {
-
-        return jdbcTemplate.query("select name,plan from diary where writerId = ? AND name = ? AND DATE(updatedAt) = ?  order by updatedAt desc",new Object[] {writerId,dto.getName(),dto.getUpdatedAt()},
+        return jdbcTemplate.query("select name,plan from diary where writerId = ? AND name = ? AND DATE(updatedAt) = ?  order by updatedAt desc",
+                                          new Object[] {writerId,dto.getName(),dto.getUpdatedAt()},
                                  (rs,num) -> new ResponseDataDto(rs.getString("name"),rs.getString("plan")));
         //해당 쿼리는 작성자 ID 와 이름이 동시에 만족한 행을 전부 읽어옵니다.
     }
@@ -56,6 +56,13 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
     @Override
     public int deleteDiary(Integer writerId, Integer diaryId, RequestDeleteDto dto) {
         return jdbcTemplate.update("delete from diary where writerId = ? and diaryId = ?", writerId,diaryId);
+    }
+    @Override
+    public List<ResponseDataDto> getPageDiary(Integer writerId,RequestFindPageDto dto) {
+        int page = (dto.getPage()-1) * dto.getSize();
+        int size = dto.getSize();
+        return jdbcTemplate.query("select name,plan from diary where writerId = ? order by updatedAt desc limit ? offset ?", new Object[] {writerId,size,page},
+                                 (rs,num) -> new ResponseDataDto(rs.getString("name"),rs.getString("plan")));
     }
 
 }

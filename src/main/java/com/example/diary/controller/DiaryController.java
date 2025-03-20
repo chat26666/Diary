@@ -2,7 +2,6 @@ package com.example.diary.controller;
 import com.example.diary.dto.*;
 import com.example.diary.service.DiaryService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +36,9 @@ public class DiaryController {
     public String deleteDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId,@RequestBody RequestDeleteDto dto) {
         diaryService.deleteDiary(writerId,diaryId,dto);
         return "Deleted";
+    }
+    @GetMapping("/{writerId}/diaries/page")
+    public ResponseEntity<List<ResponseDataDto>> getPageDiary(@PathVariable Integer writerId, @ModelAttribute RequestFindPageDto dto ) {
+        return new ResponseEntity<>(diaryService.getPageDiary(writerId,dto), HttpStatus.OK);
     }
 }
