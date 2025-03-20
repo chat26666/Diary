@@ -4,6 +4,6 @@ import com.example.diary.dto.ResponseCreateDto;
 
 public interface DiaryRepository {
 
-    public ResponseCreateDto createDiary(RequestCreateDto dto);
+    public ResponseCreateDto createDiary(Integer writerId, RequestCreateDto dto);
 
 }

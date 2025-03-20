@@ -17,7 +17,7 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public ResponseCreateDto createDiary(RequestCreateDto dto) {
+    public ResponseCreateDto createDiary(Integer writerId,RequestCreateDto dto) {
 
         SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
         insert.withTableName("diary").usingGeneratedKeyColumns("diaryId")
@@ -31,7 +31,7 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
         params.put("name",dto.getName());
         params.put("plan",dto.getPlan());
         params.put("password",hashedpassword);
-        params.put("writerId",dto.getWriterId());
+        params.put("writerId",writerId);
         Number diaryId = insert.executeAndReturnKey(new MapSqlParameterSource(params));
 
         return new ResponseCreateDto(dto.getName(),dto.getPlan(),diaryId.intValue());

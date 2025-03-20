@@ -12,7 +12,7 @@ public class DiaryServiceImpl implements DiaryService {
 
     private DiaryRepository diaryRepo;
 
-    public ResponseCreateDto createDiary(RequestCreateDto dto) {
-        return diaryRepo.createDiary(dto);
+    public ResponseCreateDto createDiary(Integer writerId,RequestCreateDto dto) {
+        return diaryRepo.createDiary(writerId,dto);
     }
 }

@@ -10,5 +10,4 @@ public class RequestCreateDto {
     String name;
     String password;
     String plan;
-    Integer WriterId;
 }
