@@ -4,6 +4,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
 public class ResponseDataDto {
     String name;
     String plan;

@@ -15,6 +15,7 @@ import java.util.Map;
 public class JdbcTemplateWriterRepository implements WriterRepository {
     private final JdbcTemplate jdbcTemplate;
 
+    @Override
     public ResponseCreateUserDto createUser(RequestCreateUserDto dto) {
 
         SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
