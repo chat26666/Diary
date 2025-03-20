@@ -10,4 +10,5 @@ public interface DiaryRepository {
     public ResponseDataDto getDiary(Integer writerId,Integer diaryId);
     public int modifyDiary(Integer writerId, Integer diaryId, RequestModifyDto dto);
     public String authPassword(Integer writerId, Integer diaryId);
+    public int deleteDiary(Integer writerId, Integer diaryId, RequestDeleteDto dto);
 }

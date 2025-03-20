@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class DiaryController {
 
-
     private final DiaryService diaryService;
 
     @PostMapping("/{writerId}/diaries")
@@ -33,5 +32,10 @@ public class DiaryController {
     @PutMapping("/{writerId}/diaries/{diaryId}")
     public ResponseEntity<ResponseDataDto> modifyDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId, @RequestBody RequestModifyDto dto) {
         return new ResponseEntity<>(diaryService.modifyDiary(writerId,diaryId,dto), HttpStatus.OK);
+    }
+    @DeleteMapping("/{writerId}/diaries/{diaryId}")
+    public String deleteDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId,@RequestBody RequestDeleteDto dto) {
+        diaryService.deleteDiary(writerId,diaryId,dto);
+        return "Deleted";
     }
 }

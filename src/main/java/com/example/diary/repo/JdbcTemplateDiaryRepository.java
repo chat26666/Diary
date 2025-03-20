@@ -46,12 +46,16 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
     @Override
     public int modifyDiary(Integer writerId, Integer diaryId, RequestModifyDto dto) {
 
-        return jdbcTemplate.update("update diary set name = ?, plan = ? where writerId = ? and diaryId = ?",dto.getName(),dto.getPlan(),writerId,diaryId);
+        return jdbcTemplate.update("update diary set name = ?, plan = ? where writerId = ? and diaryId = ?", dto.getName(),dto.getPlan(),writerId,diaryId);
     }
     //해당 메서드는 해쉬된 비밀번호를 조회해서 리턴하는 메서드입니다. 비밀번호값 검증에서 이용됩니다.
     @Override
     public String authPassword(Integer writerId, Integer diaryId) {
         return jdbcTemplate.queryForObject("select password from diary where writerId = ? and diaryId = ?", new Object[] {writerId,diaryId},String.class);
+    }
+    @Override
+    public int deleteDiary(Integer writerId, Integer diaryId, RequestDeleteDto dto) {
+        return jdbcTemplate.update("delete from diary where writerId = ? and diaryId = ?", writerId,diaryId);
     }
 
 }
