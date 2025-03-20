@@ -14,5 +14,4 @@ public class WriterServiceImpl implements WriterService {
     public ResponseCreateUserDto createUser(RequestCreateUserDto dto){
         return writerRepo.createUser(dto);
     }
-
 }

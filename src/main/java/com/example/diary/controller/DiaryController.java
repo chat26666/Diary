@@ -1,12 +1,13 @@
 package com.example.diary.controller;
-import com.example.diary.dto.RequestCreateDto;
-import com.example.diary.dto.ResponseCreateDto;
+import com.example.diary.dto.*;
 import com.example.diary.service.DiaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/writers")
@@ -20,5 +21,17 @@ public class DiaryController {
     public ResponseEntity<ResponseCreateDto> createDiary(@PathVariable Integer writerId, @RequestBody RequestCreateDto dto){
 
         return new ResponseEntity<>(diaryService.createDiary(writerId,dto), HttpStatus.CREATED);
+    }
+    @GetMapping("/{writerId}/diaries")
+    public ResponseEntity<List<ResponseDataDto>> getAllDiary(@PathVariable Integer writerId, @ModelAttribute RequestFindAllDto dto) {
+        return new ResponseEntity<>(diaryService.getAllDiary(writerId,dto), HttpStatus.OK);
+    }
+    @GetMapping("/{writerId}/diaries/{diaryId}")
+    public ResponseEntity<ResponseDataDto> getDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId) {
+        return new ResponseEntity<>(diaryService.getDiary(writerId,diaryId), HttpStatus.OK);
+    }
+    @PutMapping("/{writerId}/diaries/{diaryId}")
+    public ResponseEntity<ResponseDataDto> modifyDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId, @RequestBody RequestModifyDto dto) {
+        return new ResponseEntity<>(diaryService.modifyDiary(writerId,diaryId,dto), HttpStatus.OK);
     }
 }
