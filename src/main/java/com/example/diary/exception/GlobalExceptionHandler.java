@@ -1,4 +1,5 @@
 package com.example.diary.exception;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,5 +15,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<String> handlerBadCredentials(BadCredentialsException ez) {
         return new ResponseEntity<>(ez.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public ResponseEntity<String> handlerEmptyResultDataAccess(EmptyResultDataAccessException ez) {
+        return new ResponseEntity<>("해당 ID로 조회되지 않습니다. 올바른 작성자 ID 및 일정 ID를 입력해주세요.", HttpStatus.NOT_FOUND);
     }
 }
