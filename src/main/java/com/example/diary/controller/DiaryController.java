@@ -33,9 +33,9 @@ public class DiaryController {
         return new ResponseEntity<>(diaryService.modifyDiary(writerId,diaryId,dto), HttpStatus.OK);
     }
     @DeleteMapping("/{writerId}/diaries/{diaryId}")
-    public String deleteDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId,@RequestBody RequestDeleteDto dto) {
+    public ResponseEntity<String> deleteDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId,@RequestBody RequestDeleteDto dto) {
         diaryService.deleteDiary(writerId,diaryId,dto);
-        return "Deleted";
+        return new ResponseEntity<>("Deleted", HttpStatus.NO_CONTENT);
     }
     @GetMapping("/{writerId}/diaries/page")
     public ResponseEntity<List<ResponseDataDto>> getPageDiary(@PathVariable Integer writerId, @ModelAttribute RequestFindPageDto dto ) {
