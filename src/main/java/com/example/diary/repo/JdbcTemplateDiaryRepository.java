@@ -70,7 +70,7 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
         int size = dto.getSize();
         //페이징 기능을 쿼리에서 offset 과 limit 으로 처리하였습니다
         //limit 은 한꺼번에 읽을 페이지의 사이즈이고 page 번호는 쿼리스트링으로 넘겨진 값을 곱해서 시작 위치를 조정해주었습니다
-        //따로 예외처리할 것없이 범위를 벗어나면 빈 배열을 리턴합니다
+        //따로 예외처리할 것 없이 범위를 벗어나면 빈 배열을 리턴합니다
         return jdbcTemplate.query("select name,plan from diary where writerId = ? order by updatedAt desc limit ? offset ?", new Object[] {writerId,size,page},
                                  (rs,num) -> new ResponseDataDto(rs.getString("name"),rs.getString("plan")));
     }

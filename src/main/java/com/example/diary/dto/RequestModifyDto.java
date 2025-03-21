@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RequestModifyDto {
+
     @NotBlank(message = "이름을 입력해주세요.")
     @Size(max = 30, message = "이름은 최대 30글자까지 가능합니다.")
     String name;

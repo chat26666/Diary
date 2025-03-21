@@ -3,11 +3,9 @@ import com.example.diary.dto.*;
 import com.example.diary.repo.DiaryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -36,7 +34,6 @@ public class DiaryServiceImpl implements DiaryService {
     public ResponseDataDto modifyDiary(Integer writerId, Integer diaryId, RequestModifyDto dto){
         String hashPassword=diaryRepo.authPassword(writerId,diaryId);
         String rawPassword=dto.getPassword();
-        System.out.println(hashPassword);
         if(passwordEncoder.matches(rawPassword,hashPassword)) {   //dto 로 전달된 비밀번호와 해쉬화된 비밀번호를 비교하고 일치해야 수정이 가능합니다
             if(diaryRepo.modifyDiary(writerId,diaryId,dto) == 1) return new ResponseDataDto(dto.getName(),dto.getPlan());
             else throw new EmptyResultDataAccessException(1);

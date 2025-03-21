@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WriterController {
     private final WriterService writerService;
 
+    //사용자 등록 컨트롤러입니다
     @PostMapping
     public ResponseEntity<ResponseCreateUserDto> createUser(@RequestBody @Valid RequestCreateUserDto dto) {
         return new ResponseEntity<>(writerService.createUser(dto),HttpStatus.CREATED);

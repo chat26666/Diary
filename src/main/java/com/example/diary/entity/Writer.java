@@ -15,7 +15,7 @@ public class Writer {
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<Diary> diaries;    //DB 스키마와 유사하게 1대 다수(N)의 관계성을 최대한 자바 코드에서도 비슷하게 그려냈습니다.
-}
+    private List<Diary> diaries;    //DB스키마와 유사하게 1대 다수(N)의 관계성을 최대한 자바 코드에서도 비슷하게 그려냈습니다
+}                                   //계층간 데이터 전송을 전부 dto 로 해결한 탓에 사용되지는 않았습니다
 
 
