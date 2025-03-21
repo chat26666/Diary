@@ -1,5 +1,4 @@
 package com.example.diary.exception;
-import org.springframework.beans.TypeMismatchException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -29,10 +28,10 @@ public class GlobalExceptionHandler {
                 map(error -> error.getField() + ": " + error.getDefaultMessage()).toList();
         return new ResponseEntity<>(errorList, HttpStatus.BAD_REQUEST);
         //입력값을 검증합니다
-        //만약 입력값이 빠졌거나 잘못된 값이 입력될 경우 해당 에러들을 리스트로 모아서 클라이언트에게 반환합니다
+        //만약 입력값이 빠졌거나 잘못된 값이 입력될 경우 해당 에러들을 리스트로 반환합니다
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handlerDataIntegrityViolation(DataIntegrityViolationException ez) {
         return new ResponseEntity<>("등록되지 않은 사용자 ID 입니다.", HttpStatus.BAD_REQUEST);
-    } //해당 메서드는 일정 생성 시에 writer 테이블을 외래키로 참조하는 diary 테이블이 writer 테이블에 없는 키로 생성하려하면 발생하는 익셉션을 처리해줍니다
+    } //해당 메서드는 일정 생성 시에 writer 테이블을 외래키로 참조하는 diary 테이블이 writer 테이블에 없는 키로 생성하려 할때 발생하는 예외를 처리해줍니다
 }

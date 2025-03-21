@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface DiaryService {
 
-    ResponseCreateDto createDiary(Integer writerId,RequestCreateDto dto);
-    List<ResponseDataDto> getAllDiary(Integer writerId, RequestFindAllDto dto);
-    ResponseDataDto getDiary(Integer writerId, Integer DiaryId);
-    ResponseDataDto modifyDiary(Integer writerId, Integer DiaryId, RequestModifyDto dto);
-    void deleteDiary(Integer writerId, Integer DiaryId, RequestDeleteDto dto);
-    List<ResponseDataDto> getPageDiary(Integer writerId, RequestFindPageDto dto);
+    DiaryCreateResponseDto createDiary(Integer writerId, DiarySaveRequestDto dto);
+    List<DiaryResponseDto> getAllDiary(Integer writerId, DiaryFindAllRequestDto dto);
+    DiaryResponseDto getDiary(Integer writerId, Integer DiaryId);
+    DiaryResponseDto modifyDiary(Integer writerId, Integer DiaryId, DiarySaveRequestDto dto);
+    void deleteDiary(Integer writerId, Integer DiaryId, DiaryDeleteRequestDto dto);
+    List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto);
 }
 

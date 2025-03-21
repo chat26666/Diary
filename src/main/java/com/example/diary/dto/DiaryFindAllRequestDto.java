@@ -11,13 +11,13 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RequestFindAllDto {
+public class DiaryFindAllRequestDto {
 
     @NotBlank(message = "이름을 입력해주세요.")
     @Size(max = 30, message = "이름은 최대 30글자까지 가능합니다.")
-    String name;
+    private String name;
 
     @NotNull(message = "날짜를 입력해주세요.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    LocalDate updatedAt;
+    private LocalDate updatedAt;
 }

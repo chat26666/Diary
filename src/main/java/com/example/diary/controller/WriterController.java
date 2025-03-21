@@ -1,6 +1,6 @@
 package com.example.diary.controller;
-import com.example.diary.dto.RequestCreateUserDto;
-import com.example.diary.dto.ResponseCreateUserDto;
+import com.example.diary.dto.WriterCreateRequestDto;
+import com.example.diary.dto.WriterCreateResponseDto;
 import com.example.diary.service.WriterService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class WriterController {
 
     //사용자 등록 컨트롤러입니다
     @PostMapping
-    public ResponseEntity<ResponseCreateUserDto> createUser(@RequestBody @Valid RequestCreateUserDto dto) {
+    public ResponseEntity<WriterCreateResponseDto> createUser(@RequestBody @Valid WriterCreateRequestDto dto) {
         return new ResponseEntity<>(writerService.createUser(dto),HttpStatus.CREATED);
     }
 

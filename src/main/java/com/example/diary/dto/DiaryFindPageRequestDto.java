@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RequestFindPageDto {
+public class DiaryFindPageRequestDto {
     @NotNull(message = "페이지를 입력해주세요.")
-    Integer page;
+    private Integer page;
     @NotNull(message = "페이지 크기를 입력해주세요.")
-    Integer size;
+    private Integer size;
 }

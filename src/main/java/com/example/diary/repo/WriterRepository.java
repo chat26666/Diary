@@ -1,9 +1,7 @@
 package com.example.diary.repo;
-import com.example.diary.dto.RequestCreateUserDto;
-import com.example.diary.dto.ResponseCreateUserDto;
+import com.example.diary.dto.WriterCreateResponseDto;
+import com.example.diary.entity.Writer;
 
 public interface WriterRepository {
-
-    ResponseCreateUserDto createUser(RequestCreateUserDto dto);
-
+    WriterCreateResponseDto createUser(Writer writer);
 }

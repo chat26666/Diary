@@ -6,8 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ResponseCreateDto {
-    String name;
-    String plan;
-    Integer diaryId;
+public class DiaryResponseDto {
+    private String name;
+    private String plan;
 }

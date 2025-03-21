@@ -1,9 +1,9 @@
 package com.example.diary.service;
 
-import com.example.diary.dto.RequestCreateUserDto;
-import com.example.diary.dto.ResponseCreateUserDto;
+import com.example.diary.dto.WriterCreateRequestDto;
+import com.example.diary.dto.WriterCreateResponseDto;
 
 public interface WriterService {
 
-    ResponseCreateUserDto createUser(RequestCreateUserDto dto);
+    WriterCreateResponseDto createUser(WriterCreateRequestDto dto);
 }
