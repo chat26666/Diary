@@ -1,6 +1,7 @@
 package com.example.diary.controller;
 import com.example.diary.dto.*;
 import com.example.diary.service.DiaryService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +17,12 @@ public class DiaryController {
     private final DiaryService diaryService;
 
     @PostMapping("/{writerId}/diaries")
-    public ResponseEntity<ResponseCreateDto> createDiary(@PathVariable Integer writerId, @RequestBody RequestCreateDto dto){
+    public ResponseEntity<ResponseCreateDto> createDiary(@PathVariable Integer writerId, @RequestBody @Valid RequestCreateDto dto){
 
         return new ResponseEntity<>(diaryService.createDiary(writerId,dto), HttpStatus.CREATED);
     }
     @GetMapping("/{writerId}/diaries")
-    public ResponseEntity<List<ResponseDataDto>> getAllDiary(@PathVariable Integer writerId, @ModelAttribute RequestFindAllDto dto) {
+    public ResponseEntity<List<ResponseDataDto>> getAllDiary(@PathVariable Integer writerId, @ModelAttribute @Valid RequestFindAllDto dto) {
         return new ResponseEntity<>(diaryService.getAllDiary(writerId,dto), HttpStatus.OK);
     }
     @GetMapping("/{writerId}/diaries/{diaryId}")
@@ -29,16 +30,16 @@ public class DiaryController {
         return new ResponseEntity<>(diaryService.getDiary(writerId,diaryId), HttpStatus.OK);
     }
     @PutMapping("/{writerId}/diaries/{diaryId}")
-    public ResponseEntity<ResponseDataDto> modifyDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId, @RequestBody RequestModifyDto dto) {
+    public ResponseEntity<ResponseDataDto> modifyDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId, @RequestBody @Valid RequestModifyDto dto) {
         return new ResponseEntity<>(diaryService.modifyDiary(writerId,diaryId,dto), HttpStatus.OK);
     }
     @DeleteMapping("/{writerId}/diaries/{diaryId}")
-    public ResponseEntity<String> deleteDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId,@RequestBody RequestDeleteDto dto) {
+    public ResponseEntity<String> deleteDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId,@RequestBody @Valid RequestDeleteDto dto) {
         diaryService.deleteDiary(writerId,diaryId,dto);
         return new ResponseEntity<>("Deleted", HttpStatus.NO_CONTENT);
     }
     @GetMapping("/{writerId}/diaries/page")
-    public ResponseEntity<List<ResponseDataDto>> getPageDiary(@PathVariable Integer writerId, @ModelAttribute RequestFindPageDto dto ) {
+    public ResponseEntity<List<ResponseDataDto>> getPageDiary(@PathVariable Integer writerId, @ModelAttribute @Valid RequestFindPageDto dto ) {
         return new ResponseEntity<>(diaryService.getPageDiary(writerId,dto), HttpStatus.OK);
     }
 }
