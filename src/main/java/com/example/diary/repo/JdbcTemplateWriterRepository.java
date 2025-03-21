@@ -13,6 +13,7 @@ import java.util.Map;
 @Repository
 @AllArgsConstructor
 public class JdbcTemplateWriterRepository implements WriterRepository {
+
     private final JdbcTemplate jdbcTemplate;
 
     @Override

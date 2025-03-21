@@ -11,6 +11,7 @@ public class WriterServiceImpl implements WriterService {
 
     private final WriterRepository writerRepo;
 
+    @Override
     public ResponseCreateUserDto createUser(RequestCreateUserDto dto){
         return writerRepo.createUser(dto);
     }

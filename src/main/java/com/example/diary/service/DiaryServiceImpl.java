@@ -13,8 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 public class DiaryServiceImpl implements DiaryService {
 
-    private DiaryRepository diaryRepo;
+    private final DiaryRepository diaryRepo;
     private final BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public ResponseCreateDto createDiary(Integer writerId,RequestCreateDto dto) {
 
