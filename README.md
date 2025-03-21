@@ -31,6 +31,8 @@ MYSQL 8.0.41 for Linux on x86_64 (MySQL Community Server - GPL)
 <br>
 ### ERD
 ![ERD](https://github.com/user-attachments/assets/7792bbb7-6da0-466a-8058-ba52e6479588)
-
 <br>
 <br>
+<br>
+### SQL
+![image](https://github.com/user-attachments/assets/95c9e395-e309-4e02-a040-13259e96a22c)
