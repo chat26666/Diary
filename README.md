@@ -36,3 +36,6 @@ MYSQL 8.0.41 for Linux on x86_64 (MySQL Community Server - GPL)
 <br>
 ### SQL
 ![image](https://github.com/user-attachments/assets/95c9e395-e309-4e02-a040-13259e96a22c)
+<br>
+<br>
+<br>
