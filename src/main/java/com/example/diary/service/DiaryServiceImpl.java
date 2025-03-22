@@ -3,14 +3,11 @@ import com.example.diary.dto.*;
 import com.example.diary.entity.Diary;
 import com.example.diary.repo.DiaryRepository;
 import com.example.diary.repo.JoinRepository;
-import com.example.diary.repo.WriterRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -19,7 +16,6 @@ public class DiaryServiceImpl implements DiaryService {
 
     private final DiaryRepository diaryRepo;
     private final JoinRepository joinRepo;
-    private final WriterRepository writerRepo;
     private final BCryptPasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
@@ -45,12 +41,16 @@ public class DiaryServiceImpl implements DiaryService {
         Diary diary = modelMapper.map(dto, Diary.class)
                                  .setWriterId(writerId);
         return joinRepo.getAllDiary(diary);
+
+        //결과를 select 할때 조인을 사용하기 때문에 joinRepo 에서 결과를 긁어옵니다
     }
     @Override
     public DiaryResponseDto getDiary(Integer writerId, Integer DiaryId) {
         Diary diary = new Diary().setWriterId(writerId)
                                  .setDiaryId(DiaryId);
         return joinRepo.getDiary(diary);
+
+        //결과를 select 할때 조인을 사용하기 때문에 joinRepo 에서 결과를 긁어옵니다
     }
     @Override
     public void modifyDiary(Integer writerId, Integer diaryId, DiarySaveRequestDto dto){
@@ -80,6 +80,7 @@ public class DiaryServiceImpl implements DiaryService {
         int size = dto.getSize();
         return joinRepo.getPageDiary(writerId,dto,page,size);
 
+        //결과를 select 할때 조인을 사용하기 때문에 joinRepo 에서 결과를 긁어옵니다
         //페이지와 사이즈를 계산해서 쿼리 인자로 넘겨줍니다
     }
 }

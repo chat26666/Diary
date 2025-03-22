@@ -1,5 +1,4 @@
 package com.example.diary.dto;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -9,7 +8,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor                                                //해당 어노테이션이 없을 경우, @RequestBody 사용시 생성자 초기화가 안되어 문제가 생기기 때문에 추가하였습니다
 public class DiarySaveRequestDto {
 
