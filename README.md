@@ -8,10 +8,8 @@
 ### IntelliJ IDEA 2024.3.3<br>
 ### Spring Boot 3.4.4<br>
 ### DBMS 설치 환경 CentOS Linux release 7.9.2009<br>
-### MYSQL 8.0.41 for Linux on x86_64 (MySQL Community Server - GPL)<br>
-<br>
-<br>
-<br>
+### MYSQL 8.0.41 for Linux on x86_64 (MySQL Community Server - GPL) <br><br><br><br>
+
 # 3. 주요기능
 #### -사용자 생성<br><br>
 ![Honeycam 2025-03-23 00-09-40](https://github.com/user-attachments/assets/cdd6fc99-73d6-4907-998e-b5f9e3c9ebaf)
