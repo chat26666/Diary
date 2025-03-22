@@ -17,6 +17,6 @@ public class Diary {
     private String password;
     private String title;
     private String plan;
-    private LocalDate createdAt;    //최대한 테이블과 비슷하게 멤버변수를 선언하였습니다
+    private LocalDate createdAt;    //최대한 테이블과 같게 멤버변수를 선언하였습니다
     private LocalDate updatedAt;
 }

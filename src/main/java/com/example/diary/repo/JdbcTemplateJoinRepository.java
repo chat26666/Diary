@@ -11,7 +11,9 @@ import java.util.List;
 
 @Repository
 @AllArgsConstructor
-//해당 Repo 는 Diaryrepo 와 Writerepo 조인용도로 사용을 위해 만들어졌습니다
+//해당 Repo 는 Diary repo 와 Write repo 조인용도로 만들어졌습니다
+//조인이 필요한데 하나의 repo 에서 여러개의 테이블을 참조하는 것이 좋지 않다고 판단되었습니다
+//때문에 따로 조인용도로만 사용하는 Repository 클래스를 추가로 생성하였습니다
 public class JdbcTemplateJoinRepository implements JoinRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -43,7 +45,7 @@ public class JdbcTemplateJoinRepository implements JoinRepository {
     @Override
     public List<DiaryResponseDto> getAllDiary(Diary diary) {
         return jdbcTemplate.query(
-                "SELECT b.name, a.title,a.plan " +
+                "SELECT b.name, a.title, a.plan " +
                         "FROM diary a " +
                         "INNER JOIN writer b " +
                         "ON a.writerId = b.writerId " +
@@ -84,7 +86,7 @@ public class JdbcTemplateJoinRepository implements JoinRepository {
         );
 
         //두개의 테이블에서 join 을 사용하여 데이터를 가져옵니다
-        //queryForObject는 row 가 조회되지 않을시 EmptyResultDataAccessException 예외를 발생시키며 해당 메서드는 throws 하여 해당 예외는 ExceptionHandler 에서 처리합니다
-        //사용자와 일정관리 테이블을 나눴기 때문에 사용자 계정을 먼저 등록해야합니다 따라서 일정 ID 뿐만 아니라 사용자 ID도 일치해야 조회가 가능합니다(이름이 같은 사람일 경우 대비)
+        //queryForObject는 row 가 조회되지 않을시 EmptyResultDataAccessException 예외를 발생시키며 해당 메서드는 throws 하여 예외는 ExceptionHandler 에서 처리됩니다
+        //사용자와 일정관리 테이블을 나눴기 때문에 사용자 계정을 먼저 등록해야합니다 따라서 일정 ID 뿐만 아니라 사용자 ID도 일치해야 조회가 가능합니다
     }
 }

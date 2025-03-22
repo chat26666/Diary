@@ -27,6 +27,8 @@ public class JdbcTemplateWriterRepository implements WriterRepository {
         Number writerId = insert.executeAndReturnKey(new MapSqlParameterSource(params));
 
         return new WriterResponseDto(writerId.intValue());
+
+        //유저 등록 메서드입니다
     }
     @Override
     public int deleteUser(Writer writer) {
@@ -36,5 +38,8 @@ public class JdbcTemplateWriterRepository implements WriterRepository {
                 writer.getEmail(),
                 writer.getWriterId()
         );
+
+        //유저 삭제 메서드입니다
+        //삭제시 CASCADE 옵션으로 작성한 일정들이 전부 삭제됩니다
     }
 }
