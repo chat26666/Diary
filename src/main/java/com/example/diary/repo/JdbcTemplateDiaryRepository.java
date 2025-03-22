@@ -31,12 +31,13 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
         Map<String,Object> params = new HashMap<>();
         params.put("name",diary.getName());
         params.put("plan",diary.getPlan());
-        params.put("password",diary.getPassword());   //DB에 저장할 때는 비밀번호를 해쉬 값으로 저장합니다
+        params.put("password",diary.getPassword());
         params.put("writerId",diary.getWriterId());
 
         Number diaryId = insert.executeAndReturnKey(new MapSqlParameterSource(params));
         return new DiaryCreateResponseDto(diary.getName(),diary.getPlan(),diaryId.intValue());
 
+        //DB에 저장할 때는 비밀번호를 해쉬 값으로 저장합니다
         //추가적으로 코드 상에서는 구현되어있지 않지만 일정이 추가되면 작성자 테이블의 생성 시간도 자동으로 변경되게끔 처리되어있습니다
         //DB 트리거의 기능을 활용하여 일정 테이블이 INSERT 되는 시점에 작성자 테이블의 최근 수정시간이 트리거로 인해 자동으로 변경됩니다
         //my_diary.sql 파일 참조부탁드립니다
@@ -80,8 +81,8 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
         //사용자와 일정관리 테이블을 나눴기 때문에 사용자 계정을 먼저 등록해야합니다 따라서 일정 ID 뿐만 아니라 사용자 ID도 일치해야 조회가 가능합니다(이름이 같은 사람일 경우 대비)
     }
     @Override
-    public int modifyDiary(Diary diary) {
-        return jdbcTemplate.update(
+    public void modifyDiary(Diary diary) {
+        jdbcTemplate.update(
                 "UPDATE diary SET name = ?, plan = ? WHERE writerId = ? AND diaryId = ?",
                 diary.getName(),
                 diary.getPlan(),
@@ -104,8 +105,8 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
         //조회가 되지않으면 EmptyResultDataAccessException 예외를 던집니다
     }
     @Override
-    public int deleteDiary(Diary diary) {
-        return jdbcTemplate.update(
+    public void deleteDiary(Diary diary) {
+        jdbcTemplate.update(
                 "DELETE FROM diary WHERE writerId = ? AND diaryId = ?",
                 diary.getWriterId(),
                 diary.getDiaryId()

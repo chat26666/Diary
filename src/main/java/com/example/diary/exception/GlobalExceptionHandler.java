@@ -32,6 +32,6 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handlerDataIntegrityViolation(DataIntegrityViolationException ez) {
-        return new ResponseEntity<>("등록되지 않은 사용자 ID 입니다.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("등록되지 않은 사용자 입니다.", HttpStatus.BAD_REQUEST);
     } //해당 메서드는 일정 생성 시에 writer 테이블을 외래키로 참조하는 diary 테이블이 writer 테이블에 없는 키로 생성하려 할때 발생하는 예외를 처리해줍니다
 }

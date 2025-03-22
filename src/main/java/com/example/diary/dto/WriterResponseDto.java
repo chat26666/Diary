@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class WriterCreateResponseDto {
+public class WriterResponseDto {
     private Integer writerId;
 }

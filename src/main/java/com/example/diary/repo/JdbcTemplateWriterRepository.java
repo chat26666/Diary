@@ -1,12 +1,11 @@
 package com.example.diary.repo;
-import com.example.diary.dto.WriterCreateResponseDto;
+import com.example.diary.dto.WriterResponseDto;
 import com.example.diary.entity.Writer;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ public class JdbcTemplateWriterRepository implements WriterRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public WriterCreateResponseDto createUser(Writer writer) {
+    public WriterResponseDto createUser(Writer writer) {
         SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
         insert.withTableName("writer").usingGeneratedKeyColumns("writerId")
                                       .usingColumns("name","email");
@@ -27,6 +26,15 @@ public class JdbcTemplateWriterRepository implements WriterRepository {
 
         Number writerId = insert.executeAndReturnKey(new MapSqlParameterSource(params));
 
-        return new WriterCreateResponseDto(writerId.intValue());
+        return new WriterResponseDto(writerId.intValue());
+    }
+    @Override
+    public int deleteUser(Writer writer) {
+        return jdbcTemplate.update(
+                "DELETE FROM writer WHERE name = ? and email = ? and writerId = ?",
+                writer.getName(),
+                writer.getEmail(),
+                writer.getWriterId()
+        );
     }
 }
