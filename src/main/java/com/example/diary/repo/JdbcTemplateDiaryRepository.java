@@ -36,6 +36,10 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
 
         Number diaryId = insert.executeAndReturnKey(new MapSqlParameterSource(params));
         return new DiaryCreateResponseDto(diary.getName(),diary.getPlan(),diaryId.intValue());
+
+        //추가적으로 코드 상에서는 구현되어있지 않지만 일정이 추가되면 작성자 테이블의 생성 시간도 자동으로 변경되게끔 처리되어있습니다
+        //DB 트리거의 기능을 활용하여 일정 테이블이 INSERT 되는 시점에 작성자 테이블의 최근 수정시간이 트리거로 인해 자동으로 변경됩니다
+        //my_diary.sql 파일 참조부탁드립니다
     }
     @Override
     public List<DiaryResponseDto> getAllDiary(Diary diary) {
@@ -72,8 +76,8 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
                         rs.getString("plan")
                 )
         );
-        //사용자와 일정관리 테이블을 나눴기 때문에 사용자 계정을 등록해야합니다
-        //따라서 일정 ID 뿐만 아니라 사용자 ID도 일치해야 조회가 가능합니다(이름이 같은 사람일 경우 대비)
+        //queryForObject는 row 가 조회되지 않을시 EmptyResultDataAccessException 예외를 발생시키며 해당 메서드는 throws 하여 해당 예외는 ExceptionHandler 에서 처리합니다
+        //사용자와 일정관리 테이블을 나눴기 때문에 사용자 계정을 먼저 등록해야합니다 따라서 일정 ID 뿐만 아니라 사용자 ID도 일치해야 조회가 가능합니다(이름이 같은 사람일 경우 대비)
     }
     @Override
     public int modifyDiary(Diary diary) {
@@ -85,6 +89,9 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
                 diary.getDiaryId()
         );
         //비밀번호 값 검증은 서비스 레이어에서 실행되며 Repo에서는 순수하게 CRUD 기능에 충실하게끔 변경처리하였습니다
+        //추가적으로 코드 상에서는 구현되어있지 않지만 일정이 변경이되면 작성자 테이블의 수정시간도 자동으로 변경되게끔 처리되어있습니다
+        //DB 트리거의 기능을 활용하여 일정 테이블이 UPDATE 되는 시점에 작성자 테이블의 최근수정시간이 트리거로 인해 자동으로 똑같이 변경됩니다
+        //my_diary.sql 파일 참조부탁드립니다
     }
     @Override
     public String authPassword(Diary diary) throws EmptyResultDataAccessException {
@@ -94,6 +101,7 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
                 String.class
         );
         //해당 메서드는 해쉬된 비밀번호를 조회해서 리턴하는 메서드입니다. 비밀번호값 검증에서 이용됩니다
+        //조회가 되지않으면 EmptyResultDataAccessException 예외를 던집니다
     }
     @Override
     public int deleteDiary(Diary diary) {
@@ -104,13 +112,7 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
         );
     }
     @Override
-    public List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto) {
-        int page = (dto.getPage()-1) * dto.getSize();
-        int size = dto.getSize();
-        //단순한 페이지와 사이즈만 전달받기에 따로 엔티티로 받아서 넘기지않고 바로 dto로 넘겼습니다
-        //페이징 기능을 쿼리에서 offset 과 limit 으로 처리하였습니다
-        //limit 은 한꺼번에 읽을 페이지의 사이즈이고 page 번호는 쿼리스트링으로 넘겨진 값을 곱해서 시작 위치를 조정해주었습니다
-        //범위를 벗어나면 빈 배열을 리턴합니다
+    public List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto,int page,int size) {
         return jdbcTemplate.query(
                 "SELECT name, plan " +
                         "FROM diary " +
@@ -123,5 +125,9 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
                         rs.getString("plan")
                 )
         );
+        //단순한 페이지와 사이즈만 전달받기에 따로 엔티티로 받아서 넘기지않고 바로 dto를 넘겼습니다
+        //페이징 기능을 쿼리에서 offset 과 limit 으로 처리하였습니다
+        //limit 은 한꺼번에 읽을 페이지의 사이즈이고 page 번호는 쿼리스트링으로 넘겨진 값을 곱해서 시작 위치(offset)를 조정해주었습니다
+        //범위를 벗어나면 빈 배열을 리턴합니다
     }
 }

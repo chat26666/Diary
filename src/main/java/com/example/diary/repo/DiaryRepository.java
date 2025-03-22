@@ -12,5 +12,5 @@ public interface DiaryRepository {
     int modifyDiary(Diary diary);
     String authPassword(Diary diary);
     int deleteDiary(Diary diary);
-    List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto);
+    List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto,int page,int size);
 }

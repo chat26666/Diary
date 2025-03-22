@@ -19,6 +19,13 @@ public class DiaryServiceImpl implements DiaryService {
     private final ModelMapper modelMapper;
 
     @Override
+    public void verifyDiaryPassword(Diary diary) {
+        String hashPassword=diaryRepo.authPassword(diary);
+        String rawPassword=diary.getPassword();                                  //만약 authPassword 메서드로 단 한건도 조회되지 않을시 자동으로 예외가 던져집니다
+        if(passwordEncoder.matches(rawPassword,hashPassword)) return;            //Dto 로 전달된 비밀번호와 일치하지 않아도 예외가 던져집니다
+        else throw new BadCredentialsException("패스워드가 올바르지 않습니다.");
+    }
+    @Override
     public DiaryCreateResponseDto createDiary(Integer writerId, DiarySaveRequestDto dto) {
         Diary diary = modelMapper.map(dto, Diary.class)
                                  .setWriterId(writerId)
@@ -40,32 +47,25 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     public DiaryResponseDto modifyDiary(Integer writerId, Integer diaryId, DiarySaveRequestDto dto){
         Diary diary = modelMapper.map(dto, Diary.class)
-                                 .setDiaryId(diaryId)
-                                 .setWriterId(writerId);
-        String hashPassword=diaryRepo.authPassword(diary);
-        String rawPassword=diary.getPassword();
-        if(passwordEncoder.matches(rawPassword,hashPassword)) {   //dto 로 전달된 비밀번호와 해쉬화된 비밀번호를 비교하고 일치해야 수정이 가능합니다
-            diary.setPassword(hashPassword);
-            diaryRepo.modifyDiary(diary);
-            return new DiaryResponseDto(diary.getName(),diary.getPlan());
-        }
-        else throw new BadCredentialsException("패스워드가 올바르지 않습니다.");
+                                 .setWriterId(writerId)
+                                 .setDiaryId(diaryId);
+        verifyDiaryPassword(diary);                                              //if문 분기 필요없이 인증실패시 내부에서 자동으로 예외가 던져집니다
+        diaryRepo.modifyDiary(diary);                                            //따라서 예외가 던져지면 modify는 실행되지 않습니다
+        return new DiaryResponseDto(dto.getName(),dto.getPlan());
     }
     @Override
     public void deleteDiary(Integer writerId, Integer diaryId, DiaryDeleteRequestDto dto) {
         Diary diary = modelMapper.map(dto, Diary.class)
-                                 .setDiaryId(diaryId)
-                                 .setWriterId(writerId);
-        String hashPassword=diaryRepo.authPassword(diary);
-        String rawPassword=diary.getPassword();
-        if(passwordEncoder.matches(rawPassword,hashPassword)) {
-            diary.setPassword(hashPassword);
-            diaryRepo.deleteDiary(diary);
-        }
-        else throw new BadCredentialsException("패스워드가 올바르지 않습니다.");
+                                 .setWriterId(writerId)
+                                 .setDiaryId(diaryId);
+        verifyDiaryPassword(diary);                                              //if문 분기 필요없이 인증실패시 내부에서 자동으로 예외가 던져집니다
+        diaryRepo.deleteDiary(diary);                                            //따라서 예외가 던져지면 delete는 실행되지 않습니다
     }
     @Override
     public List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto) {
-        return diaryRepo.getPageDiary(writerId,dto);
+        int page = (dto.getPage()-1) * dto.getSize();
+        int size = dto.getSize();
+        return diaryRepo.getPageDiary(writerId,dto,page,size);
+        //페이지와 사이즈를 계산해서 쿼리 인자로 넘겨줍니다
     }
 }

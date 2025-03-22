@@ -1,11 +1,11 @@
 package com.example.diary.service;
-
 import com.example.diary.dto.*;
-
+import com.example.diary.entity.Diary;
 import java.util.List;
 
 public interface DiaryService {
 
+    void verifyDiaryPassword(Diary diary);
     DiaryCreateResponseDto createDiary(Integer writerId, DiarySaveRequestDto dto);
     List<DiaryResponseDto> getAllDiary(Integer writerId, DiaryFindAllRequestDto dto);
     DiaryResponseDto getDiary(Integer writerId, Integer DiaryId);
