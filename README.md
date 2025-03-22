@@ -13,27 +13,27 @@ MYSQL 8.0.41 for Linux on x86_64 (MySQL Community Server - GPL)
 <br>
 <br>
 ### 3. 주요기능
--사용자 생성<br>
+-사용자 생성<br><br>
 ![Honeycam 2025-03-23 00-09-40](https://github.com/user-attachments/assets/cdd6fc99-73d6-4907-998e-b5f9e3c9ebaf)
 <br>
--일정 생성<br>
+-일정 생성<br><br>
 ![Honeycam 2025-03-22 23-37-10](https://github.com/user-attachments/assets/e2b46e83-ddf0-4634-be07-ea0df6ce326a)
 <br>
--일정 전체조회(날짜 기준)<br>
+-일정 전체조회(날짜 기준)<br><br>
 ![Honeycam 2025-03-22 23-40-01](https://github.com/user-attachments/assets/64aceefd-a636-4755-98d9-6651803db426)
 <br>
--일정 단건조회<br>
+-일정 단건조회<br><br>
 ![Honeycam 2025-03-22 23-43-21](https://github.com/user-attachments/assets/282724c6-e3ed-4a13-8cdc-9c1d4b65e20b)
 <br>
--일정 변경<br>
+-일정 변경<br><br>
 ![Honeycam 2025-03-22 23-45-44](https://github.com/user-attachments/assets/e238172e-b9a0-4616-86a4-de28268fc548)
 <br>
--일정 삭제<br>
+-일정 삭제<br><br>
 ![Honeycam 2025-03-22 23-49-10](https://github.com/user-attachments/assets/c8b50739-f070-43ea-9fe2-c3489aeaef7a)
 <br>
--일정 페이지네이션<br>
+-일정 페이지네이션<br><br>
 ![Honeycam 2025-03-22 23-51-03](https://github.com/user-attachments/assets/ebd45a2d-3586-4b03-8e76-f5bb8201c008)
--사용자 삭제<br>
+<br>-사용자 삭제<br>
 ![Honeycam 2025-03-22 23-54-56](https://github.com/user-attachments/assets/e1bc2d14-ce94-416a-a7b7-fb7e722676d2)
 <br>
 <br>
