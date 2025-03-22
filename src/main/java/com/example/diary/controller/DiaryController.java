@@ -16,34 +16,34 @@ public class DiaryController {
 
     private final DiaryService diaryService;
 
-    //일정생성 컨트롤러
+    //일정 등록
     @PostMapping("/{writerId}/diaries")
     public ResponseEntity<DiaryCreateResponseDto> createDiary(@PathVariable Integer writerId, @RequestBody @Valid DiarySaveRequestDto dto){
         return new ResponseEntity<>(diaryService.createDiary(writerId,dto), HttpStatus.CREATED);
     }
-    //사용자 ID,날짜,이름으로 전체 조회하는 컨트롤러
+    //전체 조회
     @GetMapping("/{writerId}/diaries")
     public ResponseEntity<List<DiaryResponseDto>> getAllDiary(@PathVariable Integer writerId, @ModelAttribute @Valid DiaryFindAllRequestDto dto) {
         return new ResponseEntity<>(diaryService.getAllDiary(writerId,dto), HttpStatus.OK);
     }
-    //사용자 ID, 일정 ID로 검색하는 컨트롤러
+    //단건 조회
     @GetMapping("/{writerId}/diaries/{diaryId}")
     public ResponseEntity<DiaryResponseDto> getDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId) {
         return new ResponseEntity<>(diaryService.getDiary(writerId,diaryId), HttpStatus.OK);
     }
-    //일정 수정 컨트롤러
+    //일정 수정
     @PutMapping("/{writerId}/diaries/{diaryId}")
     public ResponseEntity<String> modifyDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId, @RequestBody @Valid DiarySaveRequestDto dto) {
         diaryService.modifyDiary(writerId,diaryId,dto);
         return new ResponseEntity<>("Content modified", HttpStatus.OK);
     }
-    //일정 삭제 컨트롤러
+    //일정 삭제
     @DeleteMapping("/{writerId}/diaries/{diaryId}")
     public ResponseEntity<String> deleteDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId,@RequestBody @Valid DiaryDeleteRequestDto dto) {
         diaryService.deleteDiary(writerId,diaryId,dto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    //페이지와 페이지 크기로 조회 컨트롤러
+    //일정 페이지네이션
     @GetMapping("/{writerId}/diaries/page")
     public ResponseEntity<List<DiaryResponseDto>> getPageDiary(@PathVariable Integer writerId, @ModelAttribute @Valid DiaryFindPageRequestDto dto ) {
         return new ResponseEntity<>(diaryService.getPageDiary(writerId,dto), HttpStatus.OK);
