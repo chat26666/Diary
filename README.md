@@ -33,7 +33,8 @@ MYSQL 8.0.41 for Linux on x86_64 (MySQL Community Server - GPL)
 <br>
 -일정 페이지네이션<br><br>
 ![Honeycam 2025-03-22 23-51-03](https://github.com/user-attachments/assets/ebd45a2d-3586-4b03-8e76-f5bb8201c008)
-<br>-사용자 삭제<br>
+<br>
+-사용자 삭제<br><br>
 ![Honeycam 2025-03-22 23-54-56](https://github.com/user-attachments/assets/e1bc2d14-ce94-416a-a7b7-fb7e722676d2)
 <br>
 <br>
