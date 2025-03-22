@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class DiaryCreateResponseDto {
-    private String name;
+    private String title;
     private String plan;
     private Integer diaryId;
 }

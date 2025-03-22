@@ -1,4 +1,5 @@
 package com.example.diary.dto;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -8,12 +9,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor                                                //해당 어노테이션이 없을 경우, @RequestBody 사용시 생성자 초기화가 안되어 문제가 생기기 때문에 추가하였습니다
 public class DiarySaveRequestDto {
 
-    @NotBlank(message = "이름을 입력해주세요.")                      //모든 필드는 전부 필수입력처리
-    @Size(max = 30, message = "이름은 최대 30글자까지 가능합니다.")
-    private String name;
+    @NotBlank(message = "제목을 입력해주세요.")                      //모든 필드는 전부 필수입력처리
+    @Size(max = 30, message = "제목은 최대 30글자까지 가능합니다.")
+    private String title;
 
     @NotBlank(message = "패스워드를 입력해주세요.")
     private String password;                                      //패스워드는 해시값으로 저장되서 DB에 고정크기로 저장되기 때문에 굳이 필요하지않다고 생각했습니다

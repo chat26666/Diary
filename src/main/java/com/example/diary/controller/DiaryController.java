@@ -33,8 +33,9 @@ public class DiaryController {
     }
     //일정 수정 컨트롤러
     @PutMapping("/{writerId}/diaries/{diaryId}")
-    public ResponseEntity<DiaryResponseDto> modifyDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId, @RequestBody @Valid DiarySaveRequestDto dto) {
-        return new ResponseEntity<>(diaryService.modifyDiary(writerId,diaryId,dto), HttpStatus.OK);
+    public ResponseEntity<String> modifyDiary(@PathVariable Integer writerId, @PathVariable Integer diaryId, @RequestBody @Valid DiarySaveRequestDto dto) {
+        diaryService.modifyDiary(writerId,diaryId,dto);
+        return new ResponseEntity<>("Content modified", HttpStatus.OK);
     }
     //일정 삭제 컨트롤러
     @DeleteMapping("/{writerId}/diaries/{diaryId}")

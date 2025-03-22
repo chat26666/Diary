@@ -2,11 +2,14 @@ package com.example.diary.service;
 import com.example.diary.dto.*;
 import com.example.diary.entity.Diary;
 import com.example.diary.repo.DiaryRepository;
+import com.example.diary.repo.JoinRepository;
+import com.example.diary.repo.WriterRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +18,8 @@ import java.util.List;
 public class DiaryServiceImpl implements DiaryService {
 
     private final DiaryRepository diaryRepo;
+    private final JoinRepository joinRepo;
+    private final WriterRepository writerRepo;
     private final BCryptPasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
@@ -39,22 +44,21 @@ public class DiaryServiceImpl implements DiaryService {
     public List<DiaryResponseDto> getAllDiary(Integer writerId, DiaryFindAllRequestDto dto) {
         Diary diary = modelMapper.map(dto, Diary.class)
                                  .setWriterId(writerId);
-        return diaryRepo.getAllDiary(diary);
+        return joinRepo.getAllDiary(diary);
     }
     @Override
     public DiaryResponseDto getDiary(Integer writerId, Integer DiaryId) {
         Diary diary = new Diary().setWriterId(writerId)
                                  .setDiaryId(DiaryId);
-        return diaryRepo.getDiary(diary);
+        return joinRepo.getDiary(diary);
     }
     @Override
-    public DiaryResponseDto modifyDiary(Integer writerId, Integer diaryId, DiarySaveRequestDto dto){
+    public void modifyDiary(Integer writerId, Integer diaryId, DiarySaveRequestDto dto){
         Diary diary = modelMapper.map(dto, Diary.class)
                                  .setWriterId(writerId)
                                  .setDiaryId(diaryId);
         verifyDiaryPassword(diary);
         diaryRepo.modifyDiary(diary);
-        return new DiaryResponseDto(dto.getName(),dto.getPlan());
 
         //if문 분기 필요없이 인증실패시 내부에서 자동으로 예외가 던져집니다(throws)
         //따라서 예외가 던져지면 modify는 실행되지 않습니다
@@ -74,7 +78,7 @@ public class DiaryServiceImpl implements DiaryService {
     public List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto) {
         int page = (dto.getPage()-1) * dto.getSize();
         int size = dto.getSize();
-        return diaryRepo.getPageDiary(writerId,dto,page,size);
+        return joinRepo.getPageDiary(writerId,dto,page,size);
 
         //페이지와 사이즈를 계산해서 쿼리 인자로 넘겨줍니다
     }

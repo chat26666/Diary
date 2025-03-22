@@ -8,5 +8,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DiaryResponseDto {
     private String name;
+    private String title;
     private String plan;
 }
