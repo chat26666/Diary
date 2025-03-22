@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 @AllArgsConstructor
-//해당 Repo 는 Diary repo 와 Write repo 조인용도로 만들어졌습니다
-//조인이 필요한데 하나의 repo 에서 여러개의 테이블을 참조하는 것이 좋지 않다고 판단되었습니다
-//때문에 따로 조인용도로만 사용하는 Repository 클래스를 추가로 생성하였습니다
-public class JdbcTemplateJoinRepository implements JoinRepository {
+        //해당 Repo 는 Diary repo 와 Write repo 조인용도로 만들어졌습니다(CRUD 중 READ 만 담당합니다)
+        //조인이 필요한데 하나의 repo 에서 여러개의 테이블을 참조하는 것이 좋지 않다고 판단되었습니다
+        //때문에 따로 READ 용도로만 사용되는 Repository 클래스를 추가로 생성하였습니다
+public class JdbcTemplateDiaryJoinViewRepository implements DiaryJoinViewRepository {
 
     private final JdbcTemplate jdbcTemplate;
 

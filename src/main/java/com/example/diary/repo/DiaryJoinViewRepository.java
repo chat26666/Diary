@@ -5,7 +5,7 @@ import com.example.diary.entity.Diary;
 
 import java.util.List;
 
-public interface JoinRepository {
+public interface DiaryJoinViewRepository {
 
     DiaryResponseDto getDiary(Diary diary);
     List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto, int page, int size);

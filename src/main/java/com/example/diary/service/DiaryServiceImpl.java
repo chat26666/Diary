@@ -2,7 +2,7 @@ package com.example.diary.service;
 import com.example.diary.dto.*;
 import com.example.diary.entity.Diary;
 import com.example.diary.repo.DiaryRepository;
-import com.example.diary.repo.JoinRepository;
+import com.example.diary.repo.DiaryJoinViewRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,7 +15,7 @@ import java.util.List;
 public class DiaryServiceImpl implements DiaryService {
 
     private final DiaryRepository diaryRepo;
-    private final JoinRepository joinRepo;
+    private final DiaryJoinViewRepository joinRepo;
     private final BCryptPasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 

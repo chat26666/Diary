@@ -8,9 +8,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import java.util.Arrays;
 import java.util.List;
 
-//예외처리방식중 전역에서 발생하는 예외들을 받아줄 클래스를 따로 작성했습니다
+        //예외처리방식 중 전역에서 발생하는 예외들을 처리할 예외 클래스를 작성했습니다
+        //가능한 발생할 수 있는 모든 예외를 처리하려고 노력했고 클라이언트한테는 구체적인 에러메시지가
+        //아닌 짧고 간단한 메시지만 반환하여 보안적인 측면을 강화했습니다
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -30,11 +33,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<String>> handlerMethodArgumentNotValid(MethodArgumentNotValidException ez) {
         List<String> errorList = ez.getBindingResult().getFieldErrors().stream().
-                map(error -> error.getField() + " : " + error.getDefaultMessage()).toList();
+                map(error -> {
+                    if (error.getCodes() != null && Arrays.stream(error.getCodes()).anyMatch(code -> "typeMismatch".equals(code))) {
+                        return error.getField() + " : 입력된 데이터 형식이 올바르지 않습니다.";
+                    }
+                    return error.getField() + " : " + error.getDefaultMessage();
+                })
+                .toList();
         return new ResponseEntity<>(errorList, HttpStatus.BAD_REQUEST);
 
         //클라이언트의 입력값을 검증합니다
         //만약 입력값이 빠졌거나 잘못된 값이 입력될 경우 해당 에러들을 리스트로 반환합니다
+        //typeMismatch 예외의 경우에는 날짜 데이터 타입이나 page 입력시 문자열같은 데이터가 입력될 경우 여기서 처리됩니다
+        //해당 예외는 따로 ExceptionHandler 를 생성해서 처리하고 싶었으나
+        //발생시 전부 MethodArgumentNotValidException 예외를 발생시켜서 부득이하게 이 메서드 안에서 에러코드 내에 typeMismatch 가 포함된 것만 분기문 처리하였습니다
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handlerDataIntegrityViolation(DataIntegrityViolationException ez) {
