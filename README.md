@@ -1,8 +1,6 @@
 # 1. 프로젝트 소개
-사용자 일정 관리 API Spring 6기 과제입니다.
-<br>
-<br>
-<br>
+### 사용자 일정 관리 API Spring 6기 과제입니다.<br><br><br><br> 
+
 # 2. 개발환경
 ### Java 17.0.14<br>
 ### IntelliJ IDEA 2024.3.3<br>
