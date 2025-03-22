@@ -35,6 +35,9 @@ public class DiaryServiceImpl implements DiaryService {
                                  .setWriterId(writerId)
                                  .setPassword(passwordEncoder.encode(dto.getPassword()));
         return diaryRepo.createDiary(diary);
+
+        //일정 생성 서비스 메서드입니다 Dto 로 받은 값을 Entity 에 맵핑하며 이 과정에서 비밀번호 인코딩이 이뤄집니다
+        //맵핑된 엔티티는 Repository 가 받아서 Insert 를 진행합니다
     }
     @Override
     public List<DiaryResponseDto> getAllDiary(Integer writerId, DiaryFindAllRequestDto dto) {
@@ -61,7 +64,7 @@ public class DiaryServiceImpl implements DiaryService {
         diaryRepo.modifyDiary(diary);
 
         //if문 분기 필요없이 인증실패시 내부에서 자동으로 예외가 던져집니다(throws)
-        //따라서 예외가 던져지면 modify는 실행되지 않습니다
+        //따라서 예외가 던져지면 modify 는 실행되지 않습니다
     }
     @Override
     public void deleteDiary(Integer writerId, Integer diaryId, DiaryDeleteRequestDto dto) {
@@ -72,7 +75,7 @@ public class DiaryServiceImpl implements DiaryService {
         diaryRepo.deleteDiary(diary);
 
         //if문 분기 필요없이 인증실패시 내부에서 자동으로 예외가 던져집니다(throws)
-        //따라서 예외가 던져지면 delete는 실행되지 않습니다
+        //따라서 예외가 던져지면 delete 는 실행되지 않습니다
     }
     @Override
     public List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto) {
