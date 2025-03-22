@@ -24,7 +24,7 @@ MYSQL 8.0.41 for Linux on x86_64 (MySQL Community Server - GPL)
 <br>
 <br>
 ### API 명세서
-[API명세서_일정 다이어리.xlsx](https://github.com/user-attachments/files/19383257/API._.xlsx)
+[API명세서_일정 다이어리.xlsx](https://github.com/user-attachments/files/19401965/API._.xlsx)
 ![image](https://github.com/user-attachments/assets/e9420f18-b6a0-4070-beb6-80e4cddef630)
 <br>
 <br>
