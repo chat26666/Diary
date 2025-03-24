@@ -32,7 +32,8 @@ public class JdbcTemplateDiaryJoinViewRepository implements DiaryJoinViewReposit
                 (rs, num) -> new DiaryResponseDto(
                         rs.getString("name"),
                         rs.getString("title"),
-                        rs.getString("plan")
+                        rs.getString("plan"),
+                        null
                 )
         );
 
@@ -59,7 +60,8 @@ public class JdbcTemplateDiaryJoinViewRepository implements DiaryJoinViewReposit
                 (rs, num) -> new DiaryResponseDto(
                         rs.getString("name"),
                         rs.getString("title"),
-                        rs.getString("plan")
+                        rs.getString("plan"),
+                        null
                 )
         );
 
@@ -81,7 +83,8 @@ public class JdbcTemplateDiaryJoinViewRepository implements DiaryJoinViewReposit
                 (rs, num) -> new DiaryResponseDto(
                         rs.getString("name"),
                         rs.getString("title"),
-                        rs.getString("plan")
+                        rs.getString("plan"),
+                        null
                 )
         );
 

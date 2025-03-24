@@ -2,10 +2,10 @@ package com.example.diary.service;
 import com.example.diary.dto.WriterRequestDto;
 import com.example.diary.dto.WriterResponseDto;
 import com.example.diary.entity.Writer;
+import com.example.diary.exception.UserNotFoundException;
 import com.example.diary.repo.WriterRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,8 +23,8 @@ public class WriterServiceImpl implements WriterService {
     public void deleteUser(Integer writerId,WriterRequestDto dto) {
         Writer writer = modelMapper.map(dto, Writer.class)
                                    .setWriterId(writerId);
-        if(writerRepo.deleteUser(writer) == 1) return;
-        else throw new DataIntegrityViolationException("");
+        if(writerRepo.deleteUser(writer) == 0) throw new UserNotFoundException("삭제하려는 유저가 조회되지 않습니다.");
+
         //JdbcTemplate update 메소드는 select 한 row 가 0 이어도 예외발생이 되지않기 때문에 수동으로 throw 해줍니다
     }
 }

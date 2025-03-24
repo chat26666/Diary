@@ -30,7 +30,7 @@ public class DiaryServiceImpl implements DiaryService {
         //Dto 로 전달된 비밀번호와 일치하지 않아도 예외가 던져집니다
     }
     @Override
-    public DiaryCreateResponseDto createDiary(Integer writerId, DiarySaveRequestDto dto) {
+    public DiaryResponseDto createDiary(Integer writerId, DiarySaveRequestDto dto) {
         Diary diary = modelMapper.map(dto, Diary.class)
                                  .setWriterId(writerId)
                                  .setPassword(passwordEncoder.encode(dto.getPassword()));

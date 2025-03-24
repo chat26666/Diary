@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public ResponseEntity<String> handlerEmptyResultDataAccess(EmptyResultDataAccessException ez) {
-        return new ResponseEntity<>("해당 ID로 조회되지 않습니다. 올바른 작성자 ID 및 일정 ID 를 입력해주세요.", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("해당 ID가 조회되지 않습니다. 올바른 작성자 ID 및 일정 ID 를 입력해주세요.", HttpStatus.NOT_FOUND);
 
         //잘못된 ID로 조회시 해당 예외가 호출됩니다
     }
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handlerDataIntegrityViolation(DataIntegrityViolationException ez) {
-        return new ResponseEntity<>("등록되지 않은 사용자 입니다.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("등록되지 않은 사용자 입니다. 사용자를 먼저 등록하십시오.", HttpStatus.BAD_REQUEST);
 
         //해당 메서드는 일정 생성 시에 writer 테이블을 참조하는 diary 테이블이 writer 테이블에 없는 키로 생성하려 할때 발생하는 예외를 처리해줍니다
         //때문에 반드시 일정 생선 전에는 writer 로 등록을 한 후, ID를 발급받아야 합니다
@@ -60,5 +60,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("페이지 및 사이즈를 제대로 입력해주십시오", HttpStatus.BAD_REQUEST);
 
         //페이지와 사이즈를 입력시 음수로 입력했을 경우, 해당 예외가 호출됩니다
+    }
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handlerUserNotFoundException(UserNotFoundException ez) {
+        return new ResponseEntity<>(ez.getMessage(), HttpStatus.BAD_REQUEST);
+
+        //사용자 삭제시 ID, 이메일 , 이름이 틀릴 경우 해당 예외가 반환됩니다
     }
 }

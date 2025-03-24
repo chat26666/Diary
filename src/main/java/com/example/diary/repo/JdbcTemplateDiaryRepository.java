@@ -18,7 +18,7 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public DiaryCreateResponseDto createDiary(Diary diary) throws DataIntegrityViolationException {
+    public DiaryResponseDto createDiary(Diary diary) throws DataIntegrityViolationException {
         SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
         insert.withTableName("diary").usingGeneratedKeyColumns("diaryId")
                                      .usingColumns("title","plan","password","writerId");
@@ -34,7 +34,7 @@ public class JdbcTemplateDiaryRepository implements DiaryRepository {
         params.put("writerId",diary.getWriterId());
 
         Number diaryId = insert.executeAndReturnKey(new MapSqlParameterSource(params));
-        return new DiaryCreateResponseDto(diary.getTitle(),diary.getPlan(),diaryId.intValue());
+        return new DiaryResponseDto(null,diary.getTitle(),diary.getPlan(),diaryId.intValue());
 
         //DB에 저장할 때는 비밀번호를 해쉬 값으로 저장합니다
         //추가적으로 코드 상에서는 구현되어있지않지만 일정이 추가되면 작성자 테이블의 생성 시간도 자동으로 변경되게끔 처리되어있습니다

@@ -18,7 +18,7 @@ public class DiaryController {
 
     //일정 등록
     @PostMapping("/{writerId}/diaries")
-    public ResponseEntity<DiaryCreateResponseDto> createDiary(@PathVariable Integer writerId, @RequestBody @Valid DiarySaveRequestDto dto){
+    public ResponseEntity<DiaryResponseDto> createDiary(@PathVariable Integer writerId, @RequestBody @Valid DiarySaveRequestDto dto){
         return new ResponseEntity<>(diaryService.createDiary(writerId,dto), HttpStatus.CREATED);
     }
     //전체 조회
