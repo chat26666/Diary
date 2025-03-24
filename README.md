@@ -36,8 +36,8 @@
 <br>
 <br>
 # API 명세서
-[API._.xlsx](https://github.com/user-attachments/files/19403740/API._.xlsx)
-![image](https://github.com/user-attachments/assets/861ddd91-c2fb-4b97-a5c4-869342e8a98d)
+[API.xlsx](https://github.com/user-attachments/files/19419986/API.xlsx)
+![image](https://github.com/user-attachments/assets/a53c08cc-a587-45ea-a3cb-252286e4e594)
 <br>
 <br>
 <br>
