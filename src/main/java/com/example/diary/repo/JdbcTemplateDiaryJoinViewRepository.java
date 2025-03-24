@@ -1,5 +1,4 @@
 package com.example.diary.repo;
-import com.example.diary.dto.DiaryFindPageRequestDto;
 import com.example.diary.dto.DiaryResponseDto;
 import com.example.diary.entity.Diary;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ public class JdbcTemplateDiaryJoinViewRepository implements DiaryJoinViewReposit
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto, int page, int size) throws BadSqlGrammarException {
+    public List<DiaryResponseDto> getPageDiary(Integer writerId, int page, int size) throws BadSqlGrammarException {
         return jdbcTemplate.query(
                 "SELECT b.name, a.title, a.plan " +
                         "FROM diary a " +

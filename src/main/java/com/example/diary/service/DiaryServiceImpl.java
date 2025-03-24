@@ -81,7 +81,7 @@ public class DiaryServiceImpl implements DiaryService {
     public List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto) {
         int page = (dto.getPage()-1) * dto.getSize();
         int size = dto.getSize();
-        return joinRepo.getPageDiary(writerId,dto,page,size);
+        return joinRepo.getPageDiary(writerId,page,size);
 
         //결과를 select 할때 조인을 사용하기 때문에 joinRepo 에서 결과를 긁어옵니다
         //페이지와 사이즈를 계산해서 쿼리 인자로 넘겨줍니다

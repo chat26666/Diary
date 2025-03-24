@@ -8,6 +8,6 @@ import java.util.List;
 public interface DiaryJoinViewRepository {
 
     DiaryResponseDto getDiary(Diary diary);
-    List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto, int page, int size);
+    List<DiaryResponseDto> getPageDiary(Integer writerId, int page, int size);
     List<DiaryResponseDto> getAllDiary(Diary diary);
 }
