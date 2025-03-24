@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(BadSqlGrammarException.class)
     public ResponseEntity<String> handlerBadSqlGrammarException(BadSqlGrammarException ez) {
-        return new ResponseEntity<>("페이지 및 사이즈를 제대로 입력해주십시오", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("페이지 및 사이즈는 0 이상의 정수를 입력해주십시오", HttpStatus.BAD_REQUEST);
 
          //페이지와 사이즈를 입력시 음수로 입력했을 경우, 해당 예외가 호출됩니다
     }
