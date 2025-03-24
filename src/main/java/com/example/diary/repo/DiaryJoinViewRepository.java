@@ -1,5 +1,4 @@
 package com.example.diary.repo;
-import com.example.diary.dto.DiaryFindPageRequestDto;
 import com.example.diary.dto.DiaryResponseDto;
 import com.example.diary.entity.Diary;
 
