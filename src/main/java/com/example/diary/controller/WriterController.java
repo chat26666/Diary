@@ -4,6 +4,7 @@ import com.example.diary.dto.WriterResponseDto;
 import com.example.diary.service.WriterService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
