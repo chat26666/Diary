@@ -3,7 +3,6 @@ import com.example.diary.dto.DiaryResponseDto;
 import com.example.diary.entity.Diary;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -18,7 +17,7 @@ public class JdbcTemplateDiaryJoinViewRepository implements DiaryJoinViewReposit
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<DiaryResponseDto> getPageDiary(Integer writerId, int page, int size) throws BadSqlGrammarException {
+    public List<DiaryResponseDto> getPageDiary(Integer writerId, int page, int size) {
         return jdbcTemplate.query(
                 "SELECT b.name, a.title, a.plan " +
                         "FROM diary a " +
@@ -39,8 +38,7 @@ public class JdbcTemplateDiaryJoinViewRepository implements DiaryJoinViewReposit
         /* 두개의 테이블에서 join 을 사용하여 데이터를 가져옵니다
            단순한 페이지와 사이즈만 전달받기에 따로 엔티티로 받아서 넘기지않고 바로 Dto 를 넘겼습니다
            페이징 기능을 쿼리에서 offset 과 limit 으로 처리하였습니다
-           limit 은 한꺼번에 읽을 페이지의 사이즈이고 page 번호는 쿼리스트링으로 넘겨진 값을 곱해서 시작 위치(offset)를 조정해주었습니다
-           범위를 벗어나면 빈 배열을 리턴하나 만약 page 와 size 가 음수값으로 올 경우 BadSqlGrammarException 가 throws 됩니다 */
+           limit 은 한꺼번에 읽을 페이지의 사이즈이고 page 번호는 쿼리스트링으로 넘겨진 값을 곱해서 시작 위치(offset)를 조정해주었습니다 */
     }
     @Override
     public List<DiaryResponseDto> getAllDiary(Diary diary) {
