@@ -25,6 +25,8 @@ public class WriterServiceImpl implements WriterService {
                                    .setWriterId(writerId);
         if(writerRepo.deleteUser(writer) == 0) throw new UserNotFoundException("삭제하려는 유저가 조회되지 않습니다. 아이디, 이메일, 이름이 정확한지 확인해주십시오.");
 
-        //JdbcTemplate update 메소드는 select 한 row 가 0 이어도 예외발생이 되지않기 때문에 수동으로 throw 해줍니다
+        /* JdbcTemplate update 메소드는 select 한 row 없는 경우에도
+           예외발생이 없기 때문에(update 된 row 갯수를 int 값으로 반환) 수동으로 정의한 예외를 throw 해줍니다
+           현재 같은 경우에는 업데이트 된 row 가 0 일 경우 예외를 던집니다 */
     }
 }

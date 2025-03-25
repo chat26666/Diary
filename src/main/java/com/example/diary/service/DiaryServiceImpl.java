@@ -26,6 +26,7 @@ public class DiaryServiceImpl implements DiaryService {
         if(passwordEncoder.matches(rawPassword,hashPassword)) return;
         else throw new BadCredentialsException("패스워드가 올바르지 않습니다.");
 
+        //DB 에서 긁어오는 패스워드는 원문이 아닌 해쉬값입니다
         //만약 authPassword 메서드로 단 한건도 조회되지 않을시 자동으로 예외가 던져집니다
         //Dto 로 전달된 비밀번호와 일치하지 않아도 예외가 던져집니다
     }
