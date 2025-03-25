@@ -3,8 +3,6 @@ import com.example.diary.dto.*;
 import com.example.diary.service.DiaryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
