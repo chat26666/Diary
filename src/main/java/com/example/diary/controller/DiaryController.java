@@ -3,6 +3,7 @@ import com.example.diary.dto.*;
 import com.example.diary.service.DiaryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class DiaryController {
             @PathVariable
             @Min(value = 1, message = "Writer ID 최소 입력값은 1 이상이어야 합니다.") Integer writerId,
             @RequestBody
-            @Valid DiarySaveRequestDto dto
+            @Validated({Default.class,CreateGroup.class}) DiarySaveRequestDto dto
     ) {
         return new ResponseEntity<>(
                 diaryService.createDiary(writerId, dto),
