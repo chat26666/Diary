@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<String> handlerMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ez) {
-        return new ResponseEntity<>("유효성 검증에 실패했습니다. ID 값은 1 이상의 숫자로 입력해주십시오.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("ID 값은 1 이상의 숫자로 입력해주십시오.", HttpStatus.BAD_REQUEST);
 
         //PathVariable 로 전달되는 인자가 Integer 타입인지 확인합니다
     }
