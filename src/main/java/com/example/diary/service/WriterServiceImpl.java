@@ -7,6 +7,7 @@ import com.example.diary.repo.WriterRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -16,10 +17,13 @@ public class WriterServiceImpl implements WriterService {
     private final ModelMapper modelMapper;
 
     @Override
+    @Transactional
     public WriterResponseDto createUser(WriterRequestDto dto){
         Writer writer = modelMapper.map(dto, Writer.class);
         return writerRepo.createUser(writer);
     }
+    @Override
+    @Transactional
     public void deleteUser(Integer writerId,WriterRequestDto dto) {
         Writer writer = modelMapper.map(dto, Writer.class)
                                    .setWriterId(writerId);

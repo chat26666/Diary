@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -31,6 +32,7 @@ public class DiaryServiceImpl implements DiaryService {
         //Dto 로 전달된 비밀번호와 일치하지 않아도 예외가 던져집니다
     }
     @Override
+    @Transactional
     public DiaryResponseDto createDiary(Integer writerId, DiarySaveRequestDto dto) {
         Diary diary = modelMapper.map(dto, Diary.class)
                                  .setWriterId(writerId)
@@ -41,6 +43,7 @@ public class DiaryServiceImpl implements DiaryService {
         //맵핑된 엔티티는 Repository 가 받아서 Insert 를 진행합니다
     }
     @Override
+    @Transactional(readOnly = true)
     public List<DiaryResponseDto> getAllDiary(Integer writerId, DiaryFindAllRequestDto dto) {
         Diary diary = modelMapper.map(dto, Diary.class)
                                  .setWriterId(writerId);
@@ -49,14 +52,16 @@ public class DiaryServiceImpl implements DiaryService {
         //결과를 select 할때 조인을 사용하기 때문에 joinRepo 에서 결과를 긁어옵니다
     }
     @Override
-    public DiaryResponseDto getDiary(Integer writerId, Integer DiaryId) {
+    @Transactional(readOnly = true)
+    public DiaryResponseDto getDiary(Integer writerId, Integer diaryId) {
         Diary diary = new Diary().setWriterId(writerId)
-                                 .setDiaryId(DiaryId);
+                                 .setDiaryId(diaryId);
         return joinRepo.getDiary(diary);
 
         //결과를 select 할때 조인을 사용하기 때문에 joinRepo 에서 결과를 긁어옵니다
     }
     @Override
+    @Transactional
     public void modifyDiary(Integer writerId, Integer diaryId, DiarySaveRequestDto dto){
         Diary diary = modelMapper.map(dto, Diary.class)
                                  .setWriterId(writerId)
@@ -68,6 +73,7 @@ public class DiaryServiceImpl implements DiaryService {
         //따라서 예외가 던져지면 modify 는 실행되지 않습니다
     }
     @Override
+    @Transactional
     public void deleteDiary(Integer writerId, Integer diaryId, DiaryDeleteRequestDto dto) {
         Diary diary = modelMapper.map(dto, Diary.class)
                                  .setWriterId(writerId)
@@ -79,6 +85,7 @@ public class DiaryServiceImpl implements DiaryService {
         //따라서 예외가 던져지면 delete 는 실행되지 않습니다
     }
     @Override
+    @Transactional(readOnly = true)
     public List<DiaryResponseDto> getPageDiary(Integer writerId, DiaryFindPageRequestDto dto) {
         int page = (dto.getPage()-1) * dto.getSize();
         int size = dto.getSize();
