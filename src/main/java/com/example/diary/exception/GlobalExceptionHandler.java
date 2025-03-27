@@ -17,9 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-        /* 예외처리방식 중 전역에서 발생하는 예외들을 처리할 예외 클래스를 작성했습니다
-           가능한 발생할 수 있는 모든 예외를 처리하려고 노력했고 클라이언트한테는
-           구체적인 에러메시지가 아닌 짧고 간단한 메시지만 반환하여 보안적인 측면을 강화했습니다 */
+        /* 예외처리방식 중 전역에서 발생하는 예외들을 처리할 예외 클래스를 작성했습니다 */
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
